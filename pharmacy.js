@@ -88,12 +88,20 @@ export class Pharmacy {
         switch (drug.name) {
             case "Magic Pill":
                 break;
+            case "Dafalgan":
+                this.updateDafalgan(drug)
+                break;
             default:
                 this.updateNormal(drug)
                 break;
         }
     }
 
+    updateDafalgan(drug) {
+        const amount = drug.expiresIn > 0 ? 2 : 4
+        this.decreaseBenefit(drug, amount)
+    }
+    
     updateNormal(drug) {
         const amount = drug.expiresIn > 0 ? 1 : 2
         this.decreaseBenefit(drug, amount)
