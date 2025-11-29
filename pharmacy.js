@@ -91,6 +91,9 @@ export class Pharmacy {
             case "Dafalgan":
                 this.updateDafalgan(drug)
                 break;
+            case "Herbal Tea":
+                this.updateHerbal(drug)
+                break;
             default:
                 this.updateNormal(drug)
                 break;
@@ -101,10 +104,19 @@ export class Pharmacy {
         const amount = drug.expiresIn > 0 ? 2 : 4
         this.decreaseBenefit(drug, amount)
     }
-    
+
     updateNormal(drug) {
         const amount = drug.expiresIn > 0 ? 1 : 2
         this.decreaseBenefit(drug, amount)
+    }
+
+    updateHerbal(drug) {
+        const amount = drug.expiresIn <= 0 ? 2 : 1
+        this.increaseBenefit(drug, amount)
+    }
+
+    increaseBenefit(drug, amount) {
+        drug.benefit = Math.min(50, drug.benefit + amount);
     }
 
     decreaseBenefit(drug, amount) {
