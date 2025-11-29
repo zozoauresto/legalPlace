@@ -94,10 +94,24 @@ export class Pharmacy {
             case "Herbal Tea":
                 this.updateHerbal(drug)
                 break;
+            case "Fervex":
+                this.updateFervex(drug)
+                break;
             default:
                 this.updateNormal(drug)
                 break;
         }
+    }
+
+    updateFervex(drug) {
+        if (drug.expiresIn <= 0) {
+            drug.benefit = 0;
+        } else if (drug.expiresIn <= 5) {
+            this.increaseBenefit(drug, 3)
+        } else if (drug.expiresIn <= 10) {
+            this.increaseBenefit(drug, 2)
+        } else
+            this.increaseBenefit(drug, 1)
     }
 
     updateDafalgan(drug) {
